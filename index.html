@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中華航空 | China Airlines Corporate</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- 1. 企業識別系統 (CIS) --- */
+        :root {
+            --ci-purple: #5b4c7c; /* 華航紫 */
+            --ci-red: #e06377;    /* 梅花紅 */
+            --ci-blue: #002d72;   /* 企業深藍 */
+            --bg-dark: #0a0b10;
+            --glass-panel: rgba(255, 255, 255, 0.05);
+            --text-gold: #c6a87c;
+            --text-light: #ffffff;
+            --section-spacing: 100px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0; padding: 0;
+            background-color: var(--bg-dark);
+            background-image: linear-gradient(180deg, #0a0b10 0%, #1a1c29 100%);
+            font-family: 'Helvetica Neue', 'Microsoft JhengHei', sans-serif;
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* --- 導航列 --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 50px;
+            background: rgba(10, 11, 16, 0.9);
+            backdrop-filter: blur(15px);
+            position: sticky; top: 0; z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .brand { font-size: 1.4rem; font-weight: 700; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+        .brand i { color: var(--ci-red); font-size: 1.8rem; }
+        .nav-links a {
+            text-decoration: none; color: #ccc; margin-left: 30px; font-size: 0.9rem;
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--ci-red); }
+        .btn-investor {
+            border: 1px solid var(--text-gold); color: var(--text-gold) !important;
+            padding: 8px 20px; border-radius: 30px;
+        }
+        .btn-investor:hover { background: var(--text-gold); color: #000 !important; }
+
+        /* --- Hero 形象區 --- */
+        header {
+            height: 100vh;
+            background: 
+                linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)),
+                url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=2074&auto=format&fit=crop'); 
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; position: relative;
+        }
+        header h1 {
+            font-size: 5rem; text-transform: uppercase; letter-spacing: 10px; margin: 0;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        header p { font-size: 1.5rem; letter-spacing: 5px; margin-top: 10px; color: var(--text-gold); }
+        .scroll-down { position: absolute; bottom: 30px; animation: bounce 2s infinite; color: #fff; opacity: 0.7; }
+
+        /* --- 容器 --- */
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 40px; }
+        
+        /* --- 區塊標題 --- */
+        .section-header { margin-bottom: 60px; text-align: center; }
+        .section-header h2 { font-size: 2.5rem; color: #fff; margin-bottom: 10px; }
+        .section-header span { color: var(--ci-red); font-weight: bold; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem; }
+
+        /* --- 1. 關於華航 & 機隊 (About & Fleet) --- */
+        .fleet-section { padding: var(--section-spacing) 0; }
+        .fleet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .fleet-info h3 { font-size: 2rem; margin-bottom: 20px; color: var(--text-gold); }
+        .fleet-info p { line-height: 1.8; color: #bbb; margin-bottom: 30px; }
+        .fleet-stats { display: flex; gap: 40px; }
+        .stat-box h4 { font-size: 2.5rem; margin: 0; color: #fff; }
+        .stat-box span { font-size: 0.9rem; color: #888; }
+        
+        .fleet-visual {
+            background: var(--glass-panel); padding: 40px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1); text-align: center;
+        }
+        .plane-icon { font-size: 5rem; color: var(--ci-blue); margin-bottom: 20px; display: block; }
+
+        /* --- 2. 永續發展 (Sustainability) - 包含重大性分析 --- */
+        .esg-section { background: #12141d; padding: var(--section-spacing) 0; }
+        .esg-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 30px; }
+        
+        /* 重大性矩陣樣式 */
+        .matrix-container {
+            background: rgba(255,255,255,0.03); padding: 30px; border-radius: 15px;
+            position: relative; height: 500px; border: 1px solid #333;
+        }
+        .chart-area {
+            width: 100%; height: 100%; position: relative;
+            background: linear-gradient(45deg, transparent 49%, #333 50%, transparent 51%);
+            background-size: 20px 20px;
+        }
+        .dot {
+            position: absolute; width: 16px; height: 16px; border-radius: 50%;
+            cursor: pointer; box-shadow: 0 0 15px currentColor;
+            transition: transform 0.3s;
+        }
+        .dot:hover { transform: scale(1.5); z-index: 100; }
+        .dot::after {
+            content: attr(data-topic); position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: #fff; color: #000; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;
+            white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.2s;
+        }
+        .dot:hover::after { opacity: 1; }
+
+        /* TCFD 小卡 */
+        .tcfd-sidebar { display: flex; flex-direction: column; gap: 20px; }
+        .info-card {
+            background: var(--glass-panel); padding: 25px; border-radius: 12px;
+            border-left: 4px solid var(--ci-blue);
+        }
+        .info-card h4 { margin: 0 0 10px 0; color: #fff; }
+        .big-data { font-size: 2rem; font-weight: bold; color: var(--ci-purple); font-family: monospace; }
+
+        /* --- 3. 產業競爭力 (Competitor) --- */
+        .market-section { padding: var(--section-spacing) 0; }
+        .radar-wrapper {
+            display: flex; justify-content: center; align-items: center; gap: 60px;
+            background: linear-gradient(to right, rgba(255,255,255,0.02), transparent);
+            padding: 50px; border-radius: 20px;
+        }
+        .radar-text h3 { font-size: 2rem; margin-bottom: 20px; }
+        .competitor-list { list-style: none; padding: 0; }
+        .competitor-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 15px; }
+        .dot-legend { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+
+        /* 模擬雷達圖 */
+        .radar-visual {
+            width: 300px; height: 300px; position: relative;
+            background: repeating-radial-gradient(#444 0, #444 1px, transparent 1px, transparent 50px);
+            border-radius: 50%; border: 1px solid #555;
+        }
+        .radar-shape {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(224, 99, 119, 0.4); 
+            clip-path: polygon(50% 5%, 90% 25%, 85% 85%, 15% 85%, 10% 25%); /* 華航強項形狀 */
+            border: 2px solid var(--ci-red);
+        }
+        .label { position: absolute; font-size: 0.8rem; color: #aaa; }
+
+        /* --- 4. 投資人與數據 (Investor & Log) --- */
+        .footer-data { background: #050505; padding: 60px 0; border-top: 1px solid #222; }
+        .log-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .log-table th { text-align: left; color: #666; padding-bottom: 10px; font-size: 0.8rem; }
+        .log-table td { padding: 10px 0; border-top: 1px solid #222; color: #aaa; font-family: monospace; font-size: 0.9rem; }
+        .log-tag { padding: 3px 8px; border-radius: 4px; font-size: 0.7rem; background: #222; color: #fff; }
+
+        /* 動畫 */
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} 60% {transform: translateY(-5px);} }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="brand">
+            <i class="fa-solid fa-plane-up"></i>
+            <span>CHINA AIRLINES</span>
+        </div>
+        <div class="nav-links">
+            <a href="#about" class="active">關於華航</a>
+            <a href="#fleet">機隊與飛安</a>
+            <a href="#esg">永續發展</a>
+            <a href="#market">市場競爭力</a>
+            <a href="2024-CSR-2.pdf" download class="btn-investor">
+                <i class="fa-solid fa-file-arrow-down"></i> 2024 報告書
+            </a>
+        </div>
+    </nav>
+
+    <header>
+        <h1>The Heart of Asia</h1>
+        <p>FLYING TOWARDS A SUSTAINABLE FUTURE</p>
+        <div class="scroll-down">
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </header>
+
+    <section id="fleet" class="fleet-section">
+        <div class="container">
+            <div class="section-header">
+                <span>Operational Excellence</span>
+                <h2>現代化機隊與飛安承諾</h2>
+            </div>
+            <div class="fleet-grid">
+                <div class="fleet-info">
+                    <h3>年輕、節能、高效</h3>
+                    <p>中華航空持續引進新世代節能客機 A350-900 與 A321neo，透過機隊汰舊換新，提升營運效率並降低碳排放。2024 年全機隊平均機齡僅 9.6 年，並連續 12 次通過 IOSA 國際飛安認證。</p>
+                    <div class="fleet-stats">
+                        <div class="stat-box">
+                            <h4>9.6 <small>年</small></h4>
+                            <span>平均機齡</span>
+                        </div>
+                        <div class="stat-box">
+                            <h4 style="color:var(--ci-blue)">89</h4>
+                            <span>客貨機總數</span>
+                        </div>
+                        <div class="stat-box">
+                            <h4 style="color:var(--ci-red)">12th</h4>
+                            <span>IOSA 認證連霸</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="fleet-visual">
+                    <i class="fa-solid fa-plane-departure plane-icon"></i>
+                    <h4 style="margin:0;">Airbus A350-900</h4>
+                    <p style="color:#666; font-size:0.9rem;">華航永續飛行主力機種 | 添加 SAF 燃油示範機</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="esg" class="esg-section">
+        <div class="container">
+            <div class="section-header">
+                <span>Sustainability Strategy</span>
+                <h2>重大性分析與氣候行動</h2>
+            </div>
+            
+            <div class="esg-layout">
+                <div>
+                    <h4 style="color:#ccc; margin-bottom:15px;">2024 重大議題分析 (Materiality Matrix)</h4>
+                    <div class="matrix-container">
+                        <div class="chart-area">
+                            <span style="position:absolute; top:50%; left:-30px; transform:rotate(-90deg); font-size:0.8rem; color:#666;">關注度 (Stakeholder)</span>
+                            <span style="position:absolute; bottom:-25px; left:50%; font-size:0.8rem; color:#666;">衝擊度 (Impact)</span>
+                            
+                            <div class="dot" style="top:5%; right:5%; background:var(--ci-red); color:var(--ci-red);" data-topic="飛航安全"></div>
+                            <div class="dot" style="top:12%; right:10%; background:var(--ci-purple); color:var(--ci-purple);" data-topic="資訊安全"></div>
+                            <div class="dot" style="top:15%; right:15%; background:#00ffcc; color:#00ffcc;" data-topic="氣候變遷 (TCFD)"></div>
+                            
+                            <div class="dot" style="top:30%; right:20%; background:var(--ci-blue); color:var(--ci-blue);" data-topic="能源管理"></div>
+                            <div class="dot" style="top:35%; right:25%; background:var(--ci-blue); color:var(--ci-blue);" data-topic="勞資關係"></div>
+                            
+                            <div class="dot" style="top:60%; right:50%; background:#555; color:#555;" data-topic="供應鏈管理"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tcfd-sidebar">
+                    <div class="info-card">
+                        <h4><i class="fa-solid fa-leaf" style="color:#00ffcc;"></i> 碳排放管理</h4>
+                        <div class="big-data">6,228,363</div>
+                        <p style="font-size:0.8rem; color:#888;">範疇一碳排放量 (噸CO2e)</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fa-solid fa-droplet" style="color:var(--ci-blue);"></i> 永續燃油 (SAF)</h4>
+                        <div class="big-data" style="color:var(--text-gold);">0.0011%</div>
+                        <p style="font-size:0.8rem; color:#888;">2024 添加率 (目標持續提升)</p>
+                    </div>
+                    <div class="info-card">
+                        <h4><i class="fa-solid fa-users" style="color:var(--ci-red);"></i> 員工照護</h4>
+                        <div class="big-data">99.14%</div>
+                        <p style="font-size:0.8rem; color:#888;">團體協約涵蓋率</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="market" class="market-section">
+        <div class="container">
+            <div class="radar-wrapper">
+                <div class="radar-text">
+                    <span>Market Position</span>
+                    <h3>產業競爭力分析</h3>
+                    <p style="color:#aaa; line-height:1.6; margin-bottom:20px;">
+                        依據 S&P Global 永續年鑑與 QuickseeK 聲譽調查，華航在 ESG 治理與飛安表現上領先同業。
+                    </p>
+                    <ul class="competitor-list">
+                        <li><span class="dot-legend" style="background:var(--ci-red)"></span> <strong>華航 (Dynasty)</strong>: ESG 領航者，飛安滿分。</li>
+                        <li><span class="dot-legend" style="background:#00ff00"></span> <strong>競業 G (長榮)</strong>: 獲利能力強，營運績效高。</li>
+                        <li><span class="dot-legend" style="background:#aaa"></span> <strong>競業 S (星宇)</strong>: 品牌聲量大，成長快速。</li>
+                    </ul>
+                </div>
+                
+                <div class="radar-visual">
+                    <div class="radar-shape"></div>
+                    <span class="label" style="top:10px; left:50%; transform:translateX(-50%); color:#fff;">ESG 永續</span>
+                    <span class="label" style="bottom:10px; left:50%; transform:translateX(-50%);">品牌聲量</span>
+                    <span class="label" style="top:50%; right:-40px;">飛安</span>
+                    <span class="label" style="top:50%; left:-40px;">獲利</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-data">
+        <div class="container">
+            <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:30px;">
+                <div>
+                    <h4 style="color:#fff;">SYSTEM DIGITAL FOOTPRINT</h4>
+                    <p style="font-size:0.8rem; color:#666;">官方網站版本更新與維護紀錄</p>
+                </div>
+                <div style="text-align:right;">
+                    <img src="https://www.china-airlines.com/nz/en/Images/CI_Logo_tcm313-25272.png" alt="CAL Logo" style="height:40px; opacity:0.8;">
+                </div>
+            </div>
+
+            <table class="log-table">
+                <thead>
+                    <tr>
+                        <th>VERSION</th>
+                        <th>DATE</th>
+                        <th>CHANGE LOG</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>v5.0.0</td>
+                        <td>2025-12-30</td>
+                        <td>Official Corporate Site Launch. Integrated Materiality Matrix & TCFD Dashboard.</td>
+                        <td><span class="log-tag" style="background:var(--ci-blue)">Stable</span></td>
+                    </tr>
+                    <tr>
+                        <td>v4.2.1</td>
+                        <td>2025-11-15</td>
+                        <td>Updated Fleet Data (A321neo stats) and SAF usage metrics.</td>
+                        <td><span class="log-tag">Patch</span></td>
+                    </tr>
+                    <tr>
+                        <td>v3.0.0</td>
+                        <td>2025-10-01</td>
+                        <td>System Architecture Re-design. Migrated from Game UI to Corporate Portal.</td>
+                        <td><span class="log-tag">Major</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="margin-top:50px; text-align:center; color:#444; font-size:0.8rem; border-top:1px solid #222; padding-top:20px;">
+                Copyright © 2025 CHINA AIRLINES. All Rights Reserved. <br>
+                Designed by Little Princess & Gemini AI. Data Source: 2024 Sustainability Report.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 簡單的點擊互動：點擊矩陣點時顯示資訊
+        document.querySelectorAll('.dot').forEach(dot => {
+            dot.addEventListener('click', function() {
+                alert('議題詳情：' + this.getAttribute('data-topic') + '\n請參閱報告書對應章節。');
+            });
+        });
+    </script>
+
+</body>
+</html>
